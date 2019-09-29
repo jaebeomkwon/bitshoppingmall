@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.five.mall.model.dao.CartDaoMapper">
+
+	<insert id="insert">
+		insert into cart (cartNo,userId,productNo,amount) 
+		values (cartSeq.nextval,#{userId},#{productNo},#{amount})	
+	</insert>
+
+	<select id="listCart" resultType="com.five.mall.model.dto.CartDto">
+		select cartNo, m.userId, name, p.productNo, productName, amount, productPrice, nvl(productPrice*amount,0) money
+		from member m, cart c, product p 
+		where m.userId=c.userId	and p.productNo=c.productNo and m.userId=#{userId}
+	</select>
+
+	<select id="cartMoney" resultType="com.five.mall.model.dto.CartDto">
+		select productName, nvl(sum(productPrice*amount),0) money from cart c, product p 
+		where c.productNo=p.productNo group by productName order by productName	
+	</select>
+
+	<update id="modifyCart">
+		update cart set	amount=#{amount} where cartNo=#{cartNo}
+	</update>
+
+	<delete id="deleteAll">
+		delete from cart where userId=#{userId}
+	</delete>
+
+	<delete id="delete">
+		delete from cart where cartNo=#{cartNo}
+	</delete>
+
+	<select id="sumMoney" resultType="int">
+		select nvl(sum(productPrice*amount),0) money from product p, cart c 
+		where p.productNo=c.productNo and userId=#{userId}	
+	</select>
+	
+</mapper>

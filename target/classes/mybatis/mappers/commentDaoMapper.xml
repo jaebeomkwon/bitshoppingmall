@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.five.mall.model.dao.CommentDaoMapper">
+
+	<insert id="insertComment" parameterType="com.five.mall.model.dto.CommentDto">
+		insert into commentz(commentNo,productNo,userId,commentContent) values (commentSeq.nextval,#{productNo},#{userId},#{commentContent})
+	</insert>
+	
+	<select id="listComment" resultType="com.five.mall.model.dto.CommentDto">
+		select * from commentz where productNo=#{productNo}	
+	</select>
+	
+	<delete id="deleteComment">
+		delete from commentz where commentNo=#{commentNo}
+	</delete>
+	
+</mapper>

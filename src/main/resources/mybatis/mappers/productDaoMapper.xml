@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.five.mall.model.dao.ProductDaoMapper">
+
+	<select id="listProduct" resultType="com.five.mall.model.dto.ProductDto">
+		select * from product order by productName
+	</select>
+
+	<select id="detailProduct" resultType="com.five.mall.model.dto.ProductDto">
+		select * from product where productNo=#{productNo}
+	</select>
+
+	<insert id="insertProduct" parameterType="com.five.mall.model.dto.ProductDto">
+		insert into product values (productseq.nextval,#{productName},#{productPrice},#{productDesc},#{pictureUrl})
+	</insert>
+	
+	<update id="updateProduct" parameterType="com.five.mall.model.dto.ProductDto">
+		update product set productName=#{productName},productPrice=#{productPrice},productDesc=#{productDesc},pictureUrl=#{pictureUrl} where productNo=#{productNo}
+	</update>
+
+	<delete id="deleteProduct">
+		delete from product	where productNo=#{productNo}
+	</delete>
+
+	<select id="attachedFileInfo" resultType="string">
+		select pictureUrl from product where productNo=#{productNo}
+	</select>
+
+</mapper>

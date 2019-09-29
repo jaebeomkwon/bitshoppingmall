@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+<select id="selectBoard1List" resultType="com.five.mall.model.dto.BoardDto">
+  select brdno,brdtitle,brdwriter,brdcontent,to_char(brddate,'yyyy-mm-dd') brddate,brdhit from tbl_board order by brdno desc
+</select>
+
+<insert id="insertBoard1" parameterType="com.five.mall.model.dto.BoardDto">
+  insert into tbl_board(brdno,brdtitle,brdwriter,brdcontent,brddate,brdhit)
+  values(brdseq.nextval, #{brdtitle}, #{brdwriter}, #{brdcontent}, current_timestamp,0)
+</insert>
+
+<select id="board1Read" parameterType="string" resultType="com.five.mall.model.dto.BoardDto">
+  select brdno,brdtitle,brdwriter,brdcontent from tbl_board
+  where brdno=#{brdno}
+</select>
+
+<update id="updateBoard1" parameterType="com.five.mall.model.dto.BoardDto">
+   update tbl_board 
+   set brdtitle=#{brdtitle},brdcontent=#{brdcontent} 
+   where brdno=#{brdno}
+</update>
+
+<update id="board1Delete" parameterType="string">
+   delete from tbl_board where brdno=#{brdno}
+</update>
+
+<update id="brdHitUpdate" parameterType="string">
+   update tbl_board set brdhit = brdhit+1
+   where brdno=#{brdno}
+</update>
+
+</mapper>

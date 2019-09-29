@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.five.mall.model.dao.MemberDaoMapper">
+
+	<select id="loginCheck" parameterType="com.five.mall.model.dto.MemberDto" resultType="string">
+		select name from member where userId=#{userId} and password=#{password}	
+	</select>
+	
+	<select id="getMemberList" resultType="com.five.mall.model.dto.MemberDto">
+		select * from member
+	</select>
+	
+	<!-- //////////////////////////////////////////////////////// -->
+	
+	<select id="getMemberJoinInfo" parameterType="com.five.mall.model.dto.MemberDto" resultType="com.five.mall.model.dto.MemberDto">
+		select * from member where userId=#{userId} and password=#{password}
+	</select>
+	
+	
+	<select id="idCheck" parameterType="com.five.mall.model.dto.MemberDto" resultType="com.five.mall.model.dto.MemberDto">
+		select userId from member where userId=#{userId}
+	</select>
+	
+	
+	<insert id="insertMemberInfo" parameterType="com.five.mall.model.dto.MemberDto">
+		insert into member(userId,password,name,address,email,phone,birth) values (#{userId}, #{password}, #{name}, #{address}, #{email}, #{phone}, #{birth})
+	</insert>
+	
+</mapper>
